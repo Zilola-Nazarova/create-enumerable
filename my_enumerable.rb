@@ -1,74 +1,39 @@
 module MyEnumerable
   def all?
-    if block_given? === false
+    if block_given?
       each do |elem|
-        if !elem
-          return false
-        end
+        return false unless yield(elem)
       end
-      return true
-    end
-    each do |elem|
-      if yield(elem) === false
-        return false
+    else
+      each do |elem|
+        return false unless elem
       end
     end
-    return true
+    true
   end
 
   def any?
-    if block_given? === false
+    if block_given?
       each do |elem|
-        if !!elem
-          return true
-        end  
+        return true if yield(elem)
       end
-      return false
-    end
-    each do |elem|
-      if yield(elem) === true
-        return true
+    else
+      each do |elem|
+        return true if elem
       end
     end
-    return false
+    false
   end
 
   def filter
     new_list = []
-    if block_given? === false
-      return filter
-    end
-    each do |elem|
-      if yield(elem) === true
-        new_list.push(elem)
+    if block_given?
+      each do |elem|
+        new_list.push(elem) if yield(elem)
       end
+      new_list
+    else
+      filter
     end
-    return new_list
-  end
-
-  def max
-    new_list = []
-    if block_given? === false
-      return filter
-    end
-    each do |elem|
-      if yield(elem) === true
-        new_list.push(elem)
-      end
-    end
-    return new_list
-  end
-
-  def sort
-    new_list = []
-    if block_given? === false
-      return filter
-    end
-    each do |elem|
-      if yield(elem) === true
-        new_list.push(elem)
-      end
-    end
-    return new_list
   end
 end
