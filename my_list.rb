@@ -32,7 +32,6 @@ puts(list.filter(&:even?))
 # puts [nil, true, 99].all?
 # puts [].all?
 
-
 # puts %w[ant bear cat].any? { |word| word.length >= 3 }
 # puts %w[ant bear cat].any? { |word| word.length >= 4 }
 # puts %w[ant bear cat].any?(/d/)
